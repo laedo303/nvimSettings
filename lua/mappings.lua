@@ -10,13 +10,58 @@ end, { desc = "Close All Buffers" })
 
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find Todo" })
 map("n", "\\", "<cmd>:vsplit <CR>", { desc = "Vertical Split" })
+
 map("n", "<c-l>", "<cmd>:TmuxNavigateRight<cr>", { desc = "Tmux Right" })
 map("n", "<c-h>", "<cmd>:TmuxNavigateLeft<cr>", { desc = "Tmux Left" })
 map("n", "<c-k>", "<cmd>:TmuxNavigateUp<cr>", { desc = "Tmux Up" })
 map("n", "<c-j>", "<cmd>:TmuxNavigateDown<cr>", { desc = "Tmux Down" })
 
--- Trouble
+-- NeoTree
+vim.keymap.set("n", "<leader>e", ":Neotree float reveal<CR>")
+vim.keymap.set("n", "<leader>E", ":Neotree left reveal<CR>")
+vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
 
+-- Terminal
+map("n", "<C-]>", function()
+  require("nvchad.term").toggle { pos = "vsp", size = 0.9 }
+end, { desc = "Toogle Terminal Vertical" })
+map("n", "<C-\\>", function()
+  require("nvchad.term").toggle { pos = "sp", size = 0.4 }
+end, { desc = "Toogle Terminal Horizontal" })
+map("n", "<C-f>", function()
+  require("nvchad.term").toggle { pos = "float" }
+end, { desc = "Toogle Terminal Float" })
+
+map("t", "<C-]>", function()
+  require("nvchad.term").toggle { pos = "vsp" }
+end, { desc = "Toogle Terminal Vertical" })
+map("t", "<C-\\>", function()
+  require("nvchad.term").toggle { pos = "sp" }
+end, { desc = "Toogle Terminal Horizontal" })
+map("t", "<C-f>", function()
+  require("nvchad.term").toggle { pos = "float" }
+end, { desc = "Toogle Terminal Float" })
+
+-- Basic
+map("i", "jj", "<ESC>")
+map("i", "<C-g>", function()
+  return vim.fn["codeium#Accept"]()
+end, { expr = true })
+
+-- telescope
+local builtin = require "telescope.builtin"
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+
+-- Git
+map("n", "<leader>gl", ":Flog<CR>", { desc = "Git Log" })
+map("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Git File History" })
+map("n", "<leader>gc", ":DiffviewOpen HEAD~1<CR>", { desc = "Git Last Commit" })
+map("n", "<leader>gt", ":DiffviewToggleFile<CR>", { desc = "Git File History" })
+
+-- Trouble
 map("n", "<leader>qx", "<cmd>TroubleToggle<CR>", { desc = "Open Trouble" })
 map("n", "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<CR>", { desc = "Open Workspace Trouble" })
 map("n", "<leader>qd", "<cmd>TroubleToggle document_diagnostics<CR>", { desc = "Open Document Trouble" })
@@ -48,56 +93,8 @@ map("n", "<leader>dn", function()
   require("dap").step_over()
 end, { desc = "Step Over" })
 
--- Git
-map("n", "<leader>gl", ":Flog<CR>", { desc = "Git Log" })
-map("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Git File History" })
-map("n", "<leader>gc", ":DiffviewOpen HEAD~1<CR>", { desc = "Git Last Commit" })
-map("n", "<leader>gt", ":DiffviewToggleFile<CR>", { desc = "Git File History" })
-
--- Terminal
--- map("n", "<C-]>", function()
---   require("nvchad.term").toggle { pos = "vsp", size = 0.4 }
--- end, { desc = "Toogle Terminal Vertical" })
--- map("n", "<C-\\>", function()
---   require("nvchad.term").toggle { pos = "sp", size = 0.4 }
--- end, { desc = "Toogle Terminal Horizontal" })
--- map("n", "<C-f>", function()
---   require("nvchad.term").toggle { pos = "float" }
--- end, { desc = "Toogle Terminal Float" })
--- map("t", "<C-]>", function()
---   require("nvchad.term").toggle { pos = "vsp" }
--- end, { desc = "Toogle Terminal Vertical" })
--- map("t", "<C-\\>", function()
---   require("nvchad.term").toggle { pos = "sp" }
--- end, { desc = "Toogle Terminal Horizontal" })
--- map("t", "<C-f>", function()
---   require("nvchad.term").toggle { pos = "float" }
--- end, { desc = "Toogle Terminal Float" })
-
--- Basic
-
-map("i", "jj", "<ESC>")
-map("i", "<C-g>", function()
-  return vim.fn["codeium#Accept"]()
-end, { expr = true })
-
-local builtin = require "telescope.builtin"
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
---
 
--- -- mappings
--- vim.g.mapleader = " "
---
--- -- NeoTree
-vim.keymap.set("n", "<leader>e", ":Neotree float reveal<CR>")
-vim.keymap.set("n", "<leader>E", ":Neotree left reveal<CR>")
-vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
---
 -- -- Navigation
 -- vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
 -- vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
@@ -106,8 +103,8 @@ vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
 -- vim.keymap.set("n", "<leader>/", ":CommentToggle<CR>")
 --
 -- -- Splits
-vim.keymap.set("n", "|", ":vsplit<CR>")
-vim.keymap.set("n", "\\", ":split<CR>")
+-- vim.keymap.set("n", "|", ":vsplit<CR>")
+-- vim.keymap.set("n", "\\", ":split<CR>")
 --
 -- -- Other
 -- vim.keymap.set("n", "<leader>w", ":w<CR>")
@@ -121,7 +118,3 @@ vim.keymap.set("n", "\\", ":split<CR>")
 -- vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>")
 -- vim.keymap.set("n", "<s-Tab>", ":BufferLineCyclePrev<CR>")
 --
--- -- Terminal
-vim.keymap.set("n", "<leader>tf", ":ToggleTerm direction=float<CR>")
-vim.keymap.set("n", "<leader>th", ":ToggleTerm direction=horizontal<CR>")
-vim.keymap.set("n", "<leader>tv", ":ToggleTerm direction=vertical size=40<CR>")
